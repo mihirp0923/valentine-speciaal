@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Love - Purvi ❤️</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink-soft: #fdf2f8;
+            --pink-light: #fbcfe8;
+            --pink-medium: #f472b6;
+            --pink-dark: #db2777;
+            --red-deep: #9f1239;
+            --burgundy: #4a0519;
+            --gold: #d4af37;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, var(--pink-soft) 0%, #fce7f3 50%, var(--pink-light) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Loader Screen 1 */
+        .loader-screen-1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fbcfe8 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 20px;
+        }
+
+        .loader-screen-1.hidden {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+        }
+
+        .loader-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: floatUp 4s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .greeting-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 7vw, 5rem);
+            color: var(--pink-dark);
+            text-align: center;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 2px 2px 10px rgba(219, 39, 119, 0.3);
+            padding: 15px;
+            line-height: 1.3;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .surprise-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            background: linear-gradient(135deg, var(--pink-dark), var(--red-deep));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(219, 39, 119, 0.4);
+        }
+
+        .surprise-btn:hover,
+        .surprise-btn:active {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(219, 39, 119, 0.5);
+        }
+
+        .surprise-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            50%,
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Loader Screen 2 - Name Reveal */
+        .loader-screen-2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fbcfe8 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            padding: 20px;
+        }
+
+        .loader-screen-2.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loader-screen-2.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .name-reveal {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 12vw, 10rem);
+            color: var(--pink-dark);
+            text-shadow: 3px 3px 15px rgba(219, 39, 119, 0.4);
+            overflow: hidden;
+            border-right: 3px solid var(--pink-dark);
+            white-space: nowrap;
+            animation: typing 2s steps(5) forwards, blink 0.7s step-end infinite;
+            width: 0;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 5ch;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        .sub-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--red-deep);
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 2.5s;
+            text-align: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Website */
+        .main-website {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        .main-website.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 100%;
+        }
+
+        .hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.5rem, 9vw, 6rem);
+            color: var(--pink-dark);
+            text-shadow: 2px 2px 15px rgba(219, 39, 119, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .hero .tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.8rem);
+            color: var(--red-deep);
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .heart-divider {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--pink-dark);
+            margin: 15px 0;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            75% {
+                transform: scale(1.1);
+            }
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--burgundy);
+            max-width: 600px;
+            line-height: 1.8;
+            padding: 0 15px;
+        }
+
+        /* Buttons Grid */
+        .buttons-section {
+            padding: 40px 15px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--pink-dark);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        @media (max-width: 350px) {
+            .buttons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-btn {
+            padding: 20px 25px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(253, 242, 248, 0.98));
+            border: 2px solid var(--pink-light);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(219, 39, 119, 0.15);
+            text-align: left;
+            width: 100%;
+        }
+
+        .feature-btn:hover,
+        .feature-btn:active {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(219, 39, 119, 0.25);
+            border-color: var(--pink-dark);
+            background: linear-gradient(135deg, #fff, #fdf2f8);
+        }
+
+        .feature-btn .icon {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            min-width: 45px;
+            flex-shrink: 0;
+        }
+
+        .feature-btn .btn-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .feature-btn .btn-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: var(--burgundy);
+            margin-bottom: 5px;
+        }
+
+        .feature-btn .btn-content p {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: var(--red-deep);
+            opacity: 0.85;
+            line-height: 1.4;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(74, 5, 25, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 15px;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fff 50%, #fce7f3 100%);
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: 25px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.4s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: var(--pink-dark);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--pink-dark);
+            text-align: center;
+            margin-bottom: 20px;
+            padding-right: 30px;
+        }
+
+        .modal-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            line-height: 1.9;
+            color: var(--burgundy);
+            text-align: justify;
+        }
+
+        .modal-text p {
+            margin-bottom: 18px;
+            text-indent: 25px;
+        }
+
+        /* Love Letter Specific */
+        .letter-paper {
+            background: linear-gradient(to bottom, #fffbf5, #fef7ed);
+            padding: clamp(20px, 4vw, 30px);
+            border-radius: 5px;
+            box-shadow: inset 0 0 30px rgba(139, 69, 19, 0.1);
+            border: 1px solid #e8d5c4;
+        }
+
+        .letter-signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--pink-dark);
+            text-align: right;
+            margin-top: 25px;
+        }
+
+        /* Reasons List */
+        .reasons-list {
+            list-style: none;
+        }
+
+        .reasons-list li {
+            padding: 15px 18px;
+            margin: 10px 0;
+            background: linear-gradient(135deg, rgba(251, 207, 232, 0.3), rgba(253, 242, 248, 0.5));
+            border-radius: 15px;
+            border-left: 4px solid var(--pink-dark);
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            color: var(--burgundy);
+            line-height: 1.5;
+        }
+
+        /* Rose Animation */
+        .rose-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .rose {
+            font-size: clamp(5rem, 15vw, 8rem);
+            animation: bloom 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes bloom {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(-5deg);
+            }
+
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
+        }
+
+        .rose-message {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--red-deep);
+            margin-top: 20px;
+            line-height: 1.7;
+        }
+
+        /* Heartbeat Feature */
+        .heartbeat-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .heartbeat-visual {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-heart {
+            font-size: 6rem;
+            animation: heartPump 0.8s ease-in-out infinite;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes heartPump {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.3);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.2);
+            }
+
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        .heart-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--pink-dark);
+            border-radius: 50%;
+            animation: ringPulse 1.5s ease-out infinite;
+            opacity: 0;
+        }
+
+        .heart-ring:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .heart-ring:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes ringPulse {
+            0% {
+                transform: scale(0.5);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .heartbeat-message {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--burgundy);
+            line-height: 1.8;
+        }
+
+        .heartbeat-counter {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: var(--pink-dark);
+            margin-top: 15px;
+        }
+
+        /* Kiss Map Feature */
+        .kiss-map-container {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .kiss-spots {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .kiss-spot {
+            background: linear-gradient(135deg, rgba(251, 207, 232, 0.5), rgba(253, 242, 248, 0.8));
+            border: 2px solid var(--pink-light);
+            border-radius: 15px;
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kiss-spot:hover,
+        .kiss-spot.active {
+            background: linear-gradient(135deg, var(--pink-light), var(--pink-medium));
+            border-color: var(--pink-dark);
+            transform: scale(1.03);
+        }
+
+        .kiss-spot.active::after {
+            content: '💋';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 1.2rem;
+            animation: kissAppear 0.5s ease;
+        }
+
+        @keyframes kissAppear {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .kiss-spot-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .kiss-spot-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--burgundy);
+        }
+
+        .kiss-message-display {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(219, 39, 119, 0.1), rgba(159, 18, 57, 0.1));
+            border-radius: 15px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--red-deep);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.5;
+        }
+
+        /* Midnight Confessions */
+        .confessions-container {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .confession-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: flicker 3s ease-in-out infinite;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .confession-card {
+            background: linear-gradient(135deg, #1a0a0f, #2d0a14);
+            padding: 25px 20px;
+            border-radius: 20px;
+            border: 2px solid var(--pink-dark);
+            margin: 15px 0;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confession-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--pink-light);
+            line-height: 1.8;
+        }
+
+        .confession-btn {
+            margin-top: 15px;
+            padding: 12px 35px;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, var(--burgundy), #2d0a14);
+            color: var(--pink-light);
+            border: 2px solid var(--pink-dark);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .confession-btn:hover {
+            background: linear-gradient(135deg, var(--red-deep), var(--burgundy));
+            transform: scale(1.05);
+        }
+
+        /* Compliments */
+        .compliment-display {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--pink-dark);
+            text-align: center;
+            padding: 30px 15px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.6;
+        }
+
+        .next-compliment-btn {
+            display: block;
+            margin: 15px auto;
+            padding: 12px 35px;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, var(--pink-dark), var(--red-deep));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .next-compliment-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Promises */
+        .promises-list {
+            list-style: none;
+        }
+
+        .promises-list li {
+            padding: 18px 15px 18px 50px;
+            margin: 12px 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(253, 242, 248, 0.8));
+            border-radius: 15px;
+            border: 1px solid var(--gold);
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            color: var(--burgundy);
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .promises-list li::before {
+            content: '💍';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Music */
+        .music-container {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .music-icon {
+            font-size: clamp(3rem, 10vw, 5rem);
+            animation: musicPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .lyrics-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--burgundy);
+            line-height: 2;
+            margin-top: 20px;
+        }
+
+        /* Goodnight */
+        .goodnight-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .moon-stars {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 20px;
+        }
+
+        .goodnight-msg {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--burgundy);
+            line-height: 1.9;
+        }
+
+        /* Ending Section */
+        .ending-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(180deg, transparent, rgba(219, 39, 119, 0.1));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ending-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .ending-content {
+            position: relative;
+            z-index: 1;
+            max-width: 100%;
+        }
+
+        .ending-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            color: var(--pink-dark);
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 15px rgba(219, 39, 119, 0.3);
+        }
+
+        .ending-message {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: var(--burgundy);
+            max-width: 700px;
+            line-height: 2;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .ending-signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--red-deep);
+        }
+
+        .final-heart {
+            font-size: clamp(3rem, 8vw, 4rem);
+            margin-top: 25px;
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--pink-soft);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink-medium);
+            border-radius: 10px;
+        }
+
+        /* Sparkle Animation */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Fix for iOS */
+        @supports (-webkit-touch-callout: none) {
+            .modal {
+                min-height: -webkit-fill-available;
+            }
+        }
+
+        /* Small screens */
+        @media (max-width: 400px) {
+            .kiss-spots {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 18px;
+                border-radius: 20px;
+            }
+
+            .letter-paper {
+                padding: 15px;
+            }
+        }
+
+        /* Touch feedback */
+        @media (hover: none) {
+            .feature-btn:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loader Screen 1 -->
+    <div class="loader-screen-1" id="loaderScreen1">
+        <div class="loader-hearts" id="loaderHearts"></div>
+        <h1 class="greeting-text">Happy Valentine's Day<br>My Baby 💕</h1>
+        <button class="surprise-btn" onclick="openSurprise()">
+            ✨ Open My Surprise ✨
+        </button>
+    </div>
+
+    <!-- Loader Screen 2 - Name Reveal -->
+    <div class="loader-screen-2" id="loaderScreen2">
+        <div class="loader-hearts"></div>
+        <h1 class="name-reveal" id="nameReveal">Purvi</h1>
+        <p class="sub-text">You are my beautiful obsession... ❤️</p>
+    </div>
+
+    <!-- Main Website -->
+    <div class="main-website" id="mainWebsite">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg-hearts" id="heroHearts"></div>
+            <div class="hero-content">
+                <h1>For My Purvi</h1>
+                <p class="tagline">"You are the darkness I crave and the light I worship"</p>
+                <div class="heart-divider">💕 ❤️ 💕</div>
+                <p class="hero-description">
+                    This website is my soul, bleeding just for you. Every pixel screams your name,
+                    every animation aches for you. Scroll down to feel the depth of my obsession...
+                </p>
+            </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section class="buttons-section">
+            <h2 class="section-title">Unwrap My Dark Desires</h2>
+            <div class="buttons-grid">
+
+                <button class="feature-btn" onclick="openModal('letterModal')">
+                    <span class="icon">💌</span>
+                    <div class="btn-content">
+                        <h3>My Obsessive Letter</h3>
+                        <p>Words dripping with dangerous love</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('reasonsModal')">
+                    <span class="icon">🖤</span>
+                    <div class="btn-content">
+                        <h3>Why I'm Addicted to You</h3>
+                        <p>The reasons I can't escape you...</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('roseModal')">
+                    <span class="icon">🌹</span>
+                    <div class="btn-content">
+                        <h3>A Rose Dipped in Desire</h3>
+                        <p>Beauty that burns like my passion</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('heartbeatModal')">
+                    <span class="icon">💓</span>
+                    <div class="btn-content">
+                        <h3>Feel My Heartbeat</h3>
+                        <p>Every beat screams your name</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('kissMapModal')">
+                    <span class="icon">💋</span>
+                    <div class="btn-content">
+                        <h3>Where I Want to Kiss You</h3>
+                        <p>A map of my burning desires</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('confessionsModal')">
+                    <span class="icon">🌙</span>
+                    <div class="btn-content">
+                        <h3>Midnight Confessions</h3>
+                        <p>Dark secrets I whisper at 3am</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('complimentModal')">
+                    <span class="icon">🔥</span>
+                    <div class="btn-content">
+                        <h3>You Drive Me Insane</h3>
+                        <p>Words that burn like my hunger</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('promisesModal')">
+                    <span class="icon">⛓️</span>
+                    <div class="btn-content">
+                        <h3>My Dark Promises</h3>
+                        <p>Vows sealed in eternal devotion</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('songModal')">
+                    <span class="icon">🎵</span>
+                    <div class="btn-content">
+                        <h3>Our Haunting Melody</h3>
+                        <p>The song my soul plays for you</p>
+                    </div>
+                </button>
+
+                <button class="feature-btn" onclick="openModal('goodnightModal')">
+                    <span class="icon">🌑</span>
+                    <div class="btn-content">
+                        <h3>Dreams of You Tonight</h3>
+                        <p>Where you haunt me sweetly</p>
+                    </div>
+                </button>
+
+            </div>
+        </section>
+
+        <!-- Ending Section -->
+        <section class="ending-section">
+            <div class="ending-hearts" id="endingHearts"></div>
+            <div class="ending-content">
+                <h2 class="ending-title">Forever Consumed By You</h2>
+                <p class="ending-message">
+                    My dearest Purvi, you are not just my girlfriend—you are the obsession that consumes me,
+                    the addiction I never want to recover from. Every breath I take belongs to you.
+                    I am dangerously, possessively, irrevocably yours. In this life and every life after,
+                    I will find you, claim you, and love you with a darkness that only you can understand.
+                    You are MINE—forever, always, completely.
+                </p>
+                <p class="ending-signature">Eternally Obsessed With You</p>
+                <div class="final-heart">💕</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Love Letter Modal -->
+    <div class="modal" id="letterModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('letterModal')">×</button>
+            <h2 class="modal-title">💌 My Dark Love Letter</h2>
+            <div class="letter-paper">
+                <div class="modal-text">
+                    <p>My Dearest Purvi, my beautiful obsession,</p>
+                    <p>
+                        The moment you entered my life, you didn't just walk in—you invaded my soul. You took residence
+                        in every corner of my mind, and now I can't breathe without thinking of you. You have become my
+                        addiction, my beautiful poison, the only drug I never want to quit. I am dangerously,
+                        hopelessly, possessively in love with you. You are MINE, Purvi. Not just a little, but
+                        completely, absolutely, eternally mine. The thought of anyone else looking at you the way I do
+                        makes my blood boil. You were crafted by fate to be in my arms, and I will burn the world to
+                        keep you there.
+                    </p>
+                    <p>
+                        There is a darkness in the way I love you—a hunger that never fades, a thirst that only your
+                        lips can quench. I want to hold you so close that we become one, where your heartbeat is the
+                        only sound I hear, where your breath against my neck is the only sensation I feel. I want to
+                        kiss you until you forget your own name, until the only word you remember is mine. I want to
+                        trace my fingers across every inch of your skin and memorize you like sacred poetry.
+                    </p>
+                    <p>
+                        When I close my eyes, I see you. When I dream, you are there—sometimes soft and sweet, sometimes
+                        wild and intoxicating. You have ruined me for anyone else, and I love you for destroying me so
+                        beautifully. I am obsessed with the way you smile, the way you laugh, the way your eyes hold
+                        secrets I want to spend forever uncovering. You are my religion, and I worship at the altar of
+                        your heart every single day.
+                    </p>
+                    <p>
+                        I promise to love you with a love that terrifies me—a love so deep it has no bottom, so vast it
+                        has no edges. I will protect you with the ferocity of a storm, hold you with the tenderness of a
+                        whisper. You are my first thought in the morning, my last prayer at night, and every moment in
+                        between. I am yours—completely, dangerously, forever yours.
+                    </p>
+                </div>
+                <p class="letter-signature">
+                    Obsessively & Eternally Yours,<br>
+                    Your One & Only 🖤
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reasons Modal -->
+    <div class="modal" id="reasonsModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('reasonsModal')">×</button>
+            <h2 class="modal-title">🖤 Why I'm Addicted to You</h2>
+            <ul class="reasons-list">
+                <li>🔥 Your smile is the drug I overdose on daily</li>
+                <li>🔥 Your eyes hold galaxies I want to get lost in forever</li>
+                <li>🔥 Your voice echoes in my mind at 3am when sleep escapes me</li>
+                <li>🔥 The way you laugh makes my heart forget how to beat</li>
+                <li>🔥 Your touch sets my soul ablaze in the most beautiful way</li>
+                <li>🔥 You understand the darkness in me and love me anyway</li>
+                <li>🔥 The thought of you with anyone else drives me beautifully insane</li>
+                <li>🔥 You are the calm in my storm and the storm in my calm</li>
+                <li>🔥 Your presence makes breathing feel like a privilege</li>
+                <li>🔥 Simply because you are YOU—intoxicating, devastating, mine</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Rose Modal -->
+    <div class="modal" id="roseModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('roseModal')">×</button>
+            <h2 class="modal-title">🌹 A Rose Dipped in Desire</h2>
+            <div class="rose-container">
+                <div class="rose">🌹</div>
+                <p class="rose-message">
+                    "This rose carries the fragrance of my obsession. Its petals hold
+                    the words I whisper in my dreams—your name, over and over.
+                    Just like this rose, my love for you is deep red, passionate,
+                    and dangerously beautiful. Take it, my queen. It bleeds for you."
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Heartbeat Modal (Replaced Hugs) -->
+    <div class="modal" id="heartbeatModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('heartbeatModal')">×</button>
+            <h2 class="modal-title">💓 Feel My Heartbeat</h2>
+            <div class="heartbeat-container">
+                <div class="heartbeat-visual">
+                    <div class="heart-ring"></div>
+                    <div class="heart-ring"></div>
+                    <div class="heart-ring"></div>
+                    <div class="main-heart" id="mainHeart" onclick="syncHeartbeat()">❤️</div>
+                </div>
+                <p class="heartbeat-message">
+                    "Place your hand on your chest. Feel that? Now tap my heart above.
+                    Let our heartbeats sync across the distance. Every beat of mine
+                    screams your name—Purvi, Purvi, Purvi..."
+                </p>
+                <p class="heartbeat-counter">Our hearts synced: <span id="syncCount">0</span> times 💕</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kiss Map Modal (Replaced Kiss) -->
+    <div class="modal" id="kissMapModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('kissMapModal')">×</button>
+            <h2 class="modal-title">💋 Where I Want to Kiss You</h2>
+            <div class="kiss-map-container">
+                <p style="color: var(--burgundy); font-style: italic; margin-bottom: 10px;">
+                    Tap each spot to reveal my desires...
+                </p>
+                <div class="kiss-spots">
+                    <div class="kiss-spot" onclick="showKissMessage(this, 'forehead')">
+                        <div class="kiss-spot-icon">😊</div>
+                        <div class="kiss-spot-text">Your Forehead</div>
+                    </div>
+                    <div class="kiss-spot" onclick="showKissMessage(this, 'eyes')">
+                        <div class="kiss-spot-icon">👀</div>
+                        <div class="kiss-spot-text">Your Eyelids</div>
+                    </div>
+                    <div class="kiss-spot" onclick="showKissMessage(this, 'cheeks')">
+                        <div class="kiss-spot-icon">☺️</div>
+                        <div class="kiss-spot-text">Your Cheeks</div>
+                    </div>
+                    <div class="kiss-spot" onclick="showKissMessage(this, 'lips')">
+                        <div class="kiss-spot-icon">💋</div>
+                        <div class="kiss-spot-text">Your Lips</div>
+                    </div>
+                    <div class="kiss-spot" onclick="showKissMessage(this, 'neck')">
+                        <div class="kiss-spot-icon">✨</div>
+                        <div class="kiss-spot-text">Your Neck</div>
+                    </div>
+                    <div class="kiss-spot" onclick="showKissMessage(this, 'hands')">
+                        <div class="kiss-spot-icon">🤚</div>
+                        <div class="kiss-spot-text">Your Hands</div>
+                    </div>
+                </div>
+                <div class="kiss-message-display" id="kissMessageDisplay">
+                    Tap a spot to see what I'd whisper... 💕
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Midnight Confessions Modal (Replaced Wish) -->
+    <div class="modal" id="confessionsModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('confessionsModal')">×</button>
+            <h2 class="modal-title">🌙 Midnight Confessions</h2>
+            <div class="confessions-container">
+                <div class="confession-icon">🕯️</div>
+                <p style="color: var(--burgundy); font-style: italic;">
+                    Things I think about at 3am when sleep escapes me...
+                </p>
+                <div class="confession-card">
+                    <p class="confession-text" id="confessionText">
+                        "Tap below to hear what haunts me at midnight..."
+                    </p>
+                </div>
+                <button class="confession-btn" onclick="showConfession()">🌙 Reveal a Secret</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compliments Modal -->
+    <div class="modal" id="complimentModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('complimentModal')">×</button>
+            <h2 class="modal-title">🔥 You Drive Me Insane</h2>
+            <div class="compliment-display" id="complimentDisplay">
+                Tap below to see how you destroy me... 💕
+            </div>
+            <button class="next-compliment-btn" onclick="showCompliment()">🔥 Ignite Me</button>
+        </div>
+    </div>
+
+    <!-- Promises Modal -->
+    <div class="modal" id="promisesModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('promisesModal')">×</button>
+            <h2 class="modal-title">⛓️ My Dark Promises</h2>
+            <ul class="promises-list">
+                <li>I promise to love you with an intensity that scares even me</li>
+                <li>I promise to be your shelter when the world turns cold</li>
+                <li>I promise to claim you in every lifetime we exist</li>
+                <li>I promise to fight every demon that dares to hurt you</li>
+                <li>I promise to worship your body like a sacred temple</li>
+                <li>I promise to be faithfully, obsessively, only yours</li>
+                <li>I promise to make you feel wanted every single second</li>
+                <li>I promise to love you until the universe forgets to exist</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Song Modal -->
+    <div class="modal" id="songModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('songModal')">×</button>
+            <h2 class="modal-title">🎵 Our Haunting Melody</h2>
+            <div class="music-container">
+                <div class="music-icon">🎶</div>
+                <div class="lyrics-text">
+                    "Every love song becomes your name in my ears...<br>
+                    Every melody plays our story on repeat...<br>
+                    You are the music that haunts my silence...<br>
+                    The only song my soul knows how to sing...<br><br>
+                    🎵 In the symphony of my life, you are every note 🎵"
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goodnight Modal -->
+    <div class="modal" id="goodnightModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('goodnightModal')">×</button>
+            <h2 class="modal-title">🌑 Dreams of You Tonight</h2>
+            <div class="goodnight-container">
+                <div class="moon-stars">🌙 ⭐ ✨</div>
+                <p class="goodnight-msg">
+                    As darkness wraps around me tonight,<br>
+                    you are the only light I see behind closed eyes.<br><br>
+                    I wish I could pull you close, feel your warmth,<br>
+                    breathe you in until we become one...<br><br>
+                    In my dreams, I hold you possessively tight,<br>
+                    whispering darkly beautiful things in your ear...<br><br>
+                    Goodnight, my beautiful obsession.<br>
+                    Dream of me claiming you forever. 🖤
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts for loader
+        function createFloatingHearts(container, count) {
+            if (!container) return;
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝', '🖤'];
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 4 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // Initialize floating hearts
+        createFloatingHearts(document.getElementById('loaderHearts'), 30);
+
+        // Open surprise
+        function openSurprise() {
+            document.getElementById('loaderScreen1').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('loaderScreen2').classList.add('active');
+                setTimeout(() => {
+                    document.getElementById('loaderScreen2').classList.add('hidden');
+                    setTimeout(() => {
+                        document.getElementById('mainWebsite').classList.add('active');
+                        createFloatingHearts(document.getElementById('heroHearts'), 20);
+                        createFloatingHearts(document.getElementById('endingHearts'), 15);
+                    }, 500);
+                }, 4000);
+            }, 800);
+        }
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Heartbeat sync counter
+        let syncCount = 0;
+        function syncHeartbeat() {
+            syncCount++;
+            document.getElementById('syncCount').textContent = syncCount;
+            const heart = document.getElementById('mainHeart');
+            heart.style.animation = 'none';
+            heart.offsetHeight;
+            heart.style.animation = 'heartPump 0.8s ease-in-out infinite';
+
+            // Create pulse effect
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const pulse = document.createElement('div');
+                    pulse.style.cssText = `
+                        position: absolute;
+                        width: 20px;
+                        height: 20px;
+                        background: var(--pink-dark);
+                        border-radius: 50%;
+                        left: ${50 + (Math.random() - 0.5) * 60}%;
+                        top: ${50 + (Math.random() - 0.5) * 60}%;
+                        transform: translate(-50%, -50%);
+                        animation: sparkle 1s ease-out forwards;
+                        pointer-events: none;
+                    `;
+                    heart.parentElement.appendChild(pulse);
+                    setTimeout(() => pulse.remove(), 1000);
+                }, i * 100);
+            }
+        }
+
+        // Kiss Map Messages
+        const kissMessages = {
+            forehead: "I want to kiss your forehead gently, telling you without words that you are safe, you are loved, you are MINE. A kiss of protection and eternal devotion.",
+            eyes: "I want to kiss your closed eyelids so softly, sealing away every tear, every worry. So that the only thing you see in darkness is my love for you.",
+            cheeks: "I want to kiss your cheeks until they blush crimson, until my lips memorize every curve of your beautiful face. You're so devastatingly gorgeous.",
+            lips: "I want to kiss your lips until we forget how to breathe, until the world disappears and only we exist. Deep, passionate, claiming you as mine forever.",
+            neck: "I want to kiss your neck slowly, feeling your pulse race under my lips. Marking you with invisible kisses that scream 'she belongs to me'...",
+            hands: "I want to kiss each fingertip, your palms, your wrists where your pulse dances. These hands that I want to hold for eternity."
+        };
+
+        function showKissMessage(element, spot) {
+            document.querySelectorAll('.kiss-spot').forEach(s => s.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('kissMessageDisplay').innerHTML = `"${kissMessages[spot]}"`;
+        }
+
+        // Midnight Confessions
+        const confessions = [
+            "At 3am, I imagine holding you so close that I can feel your heartbeat sync with mine... and I never let go.",
+            "I confess... I've memorized the way you say my name, and I replay it in my head when I miss you.",
+            "Sometimes I imagine our future—waking up next to you every morning, your messy hair, your sleepy smile... it drives me crazy.",
+            "I think about how your hand feels in mine... and it's the only thought that brings me peace.",
+            "I confess I get jealous of everyone who gets to see you when I can't. You're MINE, and I don't like sharing.",
+            "At midnight, I write your name over and over... Purvi, Purvi, Purvi... like a prayer I can't stop.",
+            "I imagine kissing you in the rain, holding your face in my hands, tasting raindrops on your lips...",
+            "I confess... you're the last thought before I sleep and the first when I wake. You've infected my mind beautifully.",
+            "I think about growing old with you, still holding your hand, still as obsessed with you as I am today.",
+            "Sometimes I want to lock you away from the world where only I can see you, touch you, love you. Is that crazy?"
+        ];
+
+        function showConfession() {
+            const confessionText = document.getElementById('confessionText');
+            const randomConfession = confessions[Math.floor(Math.random() * confessions.length)];
+            confessionText.style.opacity = '0';
+            setTimeout(() => {
+                confessionText.textContent = `"${randomConfession}"`;
+                confessionText.style.opacity = '1';
+            }, 300);
+        }
+
+        // Compliments (Dark Romantic)
+        const compliments = [
+            "You're so beautiful it physically hurts to look at you 🔥",
+            "Your existence has ruined me for anyone else 💀",
+            "I'm addicted to you and I never want rehab 🖤",
+            "You're the most intoxicating drug I've ever tasted 💋",
+            "Your smile is a weapon and I die happily every time 🗡️",
+            "You've turned me into a beautiful disaster 🌹",
+            "My obsession with you should be illegal ⛓️",
+            "You're dangerously perfect and I love the danger 🔥",
+            "I lose my mind a little more each time I see you 🌙",
+            "You're the sweetest madness I've ever known 💕",
+            "Looking at you feels like staring at the sun—blinding but I can't stop 🖤",
+            "You've possessed my soul and I beg you never to leave 👻",
+            "Your beauty haunts me even when my eyes are open 💀",
+            "I'm drowning in you and I've stopped trying to swim 🌊",
+            "You're the fever I never want to cure 🔥"
+        ];
+
+        function showCompliment() {
+            const display = document.getElementById('complimentDisplay');
+            const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+            display.style.opacity = '0';
+            setTimeout(() => {
+                display.textContent = randomCompliment;
+                display.style.opacity = '1';
+            }, 300);
+        }
+
+        // Add sparkle effect on button hover
+        document.querySelectorAll('.feature-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', (e) => {
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const sparkle = document.createElement('div');
+                        sparkle.className = 'sparkle';
+                        sparkle.style.left = Math.random() * 100 + '%';
+                        sparkle.style.top = Math.random() * 100 + '%';
+                        btn.appendChild(sparkle);
+                        setTimeout(() => sparkle.remove(), 1500);
+                    }, i * 100);
+                }
+            });
+        });
+
+        // Transition for confession text
+        document.getElementById('confessionText').style.transition = 'opacity 0.3s ease';
+        document.getElementById('complimentDisplay').style.transition = 'opacity 0.3s ease';
+    </script>
+
+</body>
+
+</html>
